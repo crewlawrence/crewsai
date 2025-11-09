@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Caption Generator</title>
+</head>
+<body>
+  <h1>AI Caption Generator</h1>
+
+  <input type="text" id="prompt" placeholder="Enter your prompt" />
+  <button id="generateBtn">Generate</button>
+
+  <h3>Result:</h3>
+  <div id="result"></div>
+
+  <script>
+    const btn = document.getElementById('generateBtn');
+    const resultDiv = document.getElementById('result');
+
+    btn.addEventListener('click', async () => {
+      const prompt = document.getElementById('prompt').value;
+      if (!prompt) return alert('Enter a prompt!');
+
+      try {
+        const res = await fetch('/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+        const data = await res.json();
+        resultDiv.textContent = data.result;
+      } catch (err) {
+        resultDiv.textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
