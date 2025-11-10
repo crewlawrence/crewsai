@@ -4,3 +4,5 @@ server/.env
 server/.env
 server/.env
 .env
+server/.env
+client/.env
